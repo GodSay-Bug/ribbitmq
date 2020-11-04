@@ -1,0 +1,10 @@
+
+spring:
+  rabbitmq:
+    host: 192.168.64.140
+    username: admin
+    password: admin
+
+    listener:
+      simple:
+        prefetch: 1 # 默认250 qos=1，qos每次只抓取一条
