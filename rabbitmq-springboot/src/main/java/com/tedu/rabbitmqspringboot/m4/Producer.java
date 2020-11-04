@@ -19,21 +19,14 @@ public class Producer {
 
     public void sent() {
         while (true) {
-            System.out.println("输入");
+            System.out.println("输入：");
             String msg = new Scanner(System.in).nextLine();
+            System.out.println("输入路由键：");
+            String key = new Scanner(System.in).nextLine();
+
             // 默认是持久消息 向交换机发送消息        路由键为空
-            t.convertAndSend("logs", "", msg);
+            t.convertAndSend("direct_logs", key, msg);
 
-            // 如果要发送非持久消息，需要一个消息预处理对象先修改消息属性，然后再进行发送
-            /*t.convertAndSend("task_Queue", (Object) msg, new MessagePostProcessor() {
-                @Override
-                public Message postProcessMessage(Message message) throws AmqpException {
-                    MessageProperties messages = message.getMessageProperties();// 调整为非持久
-                    messages.setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT);
-                    return message;
-
-                }
-            });*/
 
 
         }

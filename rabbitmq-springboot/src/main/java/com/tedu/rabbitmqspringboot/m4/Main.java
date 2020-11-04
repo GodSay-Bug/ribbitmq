@@ -1,5 +1,6 @@
 package com.tedu.rabbitmqspringboot.m4;
 
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -13,8 +14,7 @@ import javax.annotation.PostConstruct;
  * @Author WL
  * @Date 2020-11-4 11:49
  * @Version 1.0
- * 工厂模式
- * 不创建队列，创建交换机
+ * 路由模式
  */
 @SpringBootApplication
 public class Main {
@@ -24,8 +24,8 @@ public class Main {
 
     // 交换机
     @Bean
-    public FanoutExchange logsExchange() {
-        return new FanoutExchange("logs", false, false);
+    public DirectExchange logsExchange() {
+        return new DirectExchange("direct_logs", false, false);
     }
 
     @Autowired

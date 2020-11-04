@@ -22,7 +22,8 @@ public class Consumer {
 
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue,     // 指定队列,不指定的话就是随机命名
-            exchange = @Exchange(name = "logs", declare = "false")     // 交换机 false=不重复定义交换机
+            exchange = @Exchange(name = "direct_logs", declare = "false"),     // 交换机 false=不重复定义交换机
+            key = {"error"}
     ))     // 直接加到方法上,不需要RabbitHandler了
     public void receive1(String msg) {
         System.out.println("1收到:" + msg);
@@ -30,8 +31,8 @@ public class Consumer {
 
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue,     // 指定队列,不指定的话就是随机命名
-            exchange = @Exchange(name = "logs", declare = "false")     // 交换机
-    ))
+            exchange = @Exchange(name = "direct_logs", declare = "false"),    // 交换机
+            key = {"error", "info", "warning"}))
     public void receive2(String msg) {
         System.out.println("2收到:" + msg);
     }
